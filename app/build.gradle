@@ -80,7 +80,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
     //Kakao Login
-    implementation "com.kakao.sdk:v2-all:2.18.0"
+    implementation "com.kakao.sdk:v2-user:2.18.0"
 }
 
 kapt {
