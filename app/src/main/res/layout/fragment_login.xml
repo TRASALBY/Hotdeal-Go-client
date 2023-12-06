@@ -40,10 +40,30 @@
         android:hint="@string/input_user_pass"
         android:inputType="textPassword"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/ib_kakao_login"
+        app:layout_constraintBottom_toTopOf="@id/btn_hotdeal_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_input_id"
         app:layout_constraintTop_toBottomOf="@id/et_input_id" />
+
+    <Button
+        android:id="@+id/btn_hotdeal_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        app:layout_constraintBottom_toTopOf="@id/ib_kakao_login"
+        app:layout_constraintEnd_toStartOf="@id/btn_hotdeal_sign_in"
+        app:layout_constraintStart_toStartOf="@+id/et_input_id"
+        app:layout_constraintTop_toBottomOf="@id/et_input_pass" />
+
+    <Button
+        android:id="@+id/btn_hotdeal_sign_in"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_hotdeal_login"
+        app:layout_constraintEnd_toEndOf="@+id/et_input_pass"
+        app:layout_constraintStart_toEndOf="@+id/btn_hotdeal_login"
+        app:layout_constraintTop_toTopOf="@+id/btn_hotdeal_login" />
 
     <com.navercorp.nid.oauth.view.NidOAuthLoginButton
         android:id="@+id/ib_naver_login"
@@ -65,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ib_naver_login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_input_pass" />
+        app:layout_constraintTop_toBottomOf="@id/btn_hotdeal_login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
