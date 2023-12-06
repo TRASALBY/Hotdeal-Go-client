@@ -1,9 +1,13 @@
 package com.budge.hotdeal_go.presentation.view
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.budge.hotdeal_go.BuildConfig
 import com.budge.hotdeal_go.R
 import com.budge.hotdeal_go.databinding.FragmentLoginBinding
 import com.budge.hotdeal_go.presentation.base.BaseFragment
@@ -12,6 +16,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "LoginFragment"
@@ -34,16 +39,44 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setNaverLogin()
         setEvent()
+    }
+
+    private fun setNaverLogin() {
+        NaverIdLoginSDK.initialize(
+            requireContext(),
+            BuildConfig.NAVER_CLIENT_ID,
+            BuildConfig.NAVER_CLIENT_SECRET,
+            getString(R.string.app_name)
+        )
+        val launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
+                        Log.d(TAG, "네이버 로그인 성공 : ${NaverIdLoginSDK.getAccessToken()}")
+                    }
+
+                    RESULT_CANCELED -> {
+                        // 실패 or 에러
+                        val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+                        val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                        Log.d(TAG, "네이버 로그인 실패 : errorCode:$errorCode, errorDesc:$errorDescription")
+                    }
+                }
+            }
+
+        binding.ibNaverLogin.setOAuthLogin(launcher)
     }
 
     private fun setEvent() {
         binding.ibKakaoLogin.setOnClickListener {
-            kakaoLogin()
+            startKakaoLogin()
         }
     }
 
-    private fun kakaoLogin() {
+    private fun startKakaoLogin() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
             UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
                 if (error != null) {
