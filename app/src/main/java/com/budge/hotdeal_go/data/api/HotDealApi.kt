@@ -12,4 +12,16 @@ interface HotDealApi {
     ): List<HotDealItem>
 
 
+    @GET("/hotdeal/quasarzone")
+    fun getHotdealFromQuasarzone(
+
+    ): List<HotDealItem>
+
+    @GET("/hotdeal/ruliweb")
+    fun getHotdealFromRuliweb(
+
+    ): List<HotDealItem>
+
+
+
 }

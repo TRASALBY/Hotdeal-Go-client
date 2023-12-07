@@ -10,4 +10,12 @@ class HotDealRemoteDatasourceImpl @Inject constructor(
     override fun getHotdealFromFmkorea(): List<HotDealItem> {
         return hotDealApi.getHotdealFromFmkorea()
     }
+
+    override fun getHotdealFromQuasarzone(): List<HotDealItem> {
+        return hotDealApi.getHotdealFromQuasarzone()
+    }
+
+    override fun getHotdealFromRuliweb(): List<HotDealItem> {
+        return hotDealApi.getHotdealFromRuliweb()
+    }
 }
