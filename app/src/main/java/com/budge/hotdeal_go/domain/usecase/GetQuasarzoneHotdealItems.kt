@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetQuasarzoneHotdealItems @Inject constructor(
     private val hotDealRepository: HotDealRepository
 ) {
-    fun getItems() = hotDealRepository.getHotdealFromQuasarzone()
+    suspend fun getItems() = hotDealRepository.getHotdealFromQuasarzone()
 }

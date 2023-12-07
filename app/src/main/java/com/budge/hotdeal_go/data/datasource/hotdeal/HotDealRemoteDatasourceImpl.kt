@@ -7,15 +7,15 @@ import javax.inject.Inject
 class HotDealRemoteDatasourceImpl @Inject constructor(
     private val hotDealApi: HotDealApi
 ) : HotDealRemoteDatasource {
-    override fun getHotdealFromFmkorea(): List<HotDealItem> {
+    override suspend fun getHotdealFromFmkorea(): List<HotDealItem> {
         return hotDealApi.getHotdealFromFmkorea()
     }
 
-    override fun getHotdealFromQuasarzone(): List<HotDealItem> {
+    override suspend fun getHotdealFromQuasarzone(): List<HotDealItem> {
         return hotDealApi.getHotdealFromQuasarzone()
     }
 
-    override fun getHotdealFromRuliweb(): List<HotDealItem> {
+    override suspend fun getHotdealFromRuliweb(): List<HotDealItem> {
         return hotDealApi.getHotdealFromRuliweb()
     }
 }

@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetFmkoreaHotdealItems @Inject constructor(
     private val hotDealRepository: HotDealRepository
 ) {
-    fun getItems() = hotDealRepository.getHotdealFromFmkorea()
+    suspend fun getItems() = hotDealRepository.getHotdealFromFmkorea()
 }

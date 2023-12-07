@@ -7,18 +7,18 @@ import retrofit2.http.GET
 interface HotDealApi {
 
     @GET("/hotdeal/fmkorea")
-    fun getHotdealFromFmkorea(
+    suspend fun getHotdealFromFmkorea(
 
     ): List<HotDealItem>
 
 
     @GET("/hotdeal/quasarzone")
-    fun getHotdealFromQuasarzone(
+    suspend fun getHotdealFromQuasarzone(
 
     ): List<HotDealItem>
 
     @GET("/hotdeal/ruliweb")
-    fun getHotdealFromRuliweb(
+    suspend fun getHotdealFromRuliweb(
 
     ): List<HotDealItem>
 

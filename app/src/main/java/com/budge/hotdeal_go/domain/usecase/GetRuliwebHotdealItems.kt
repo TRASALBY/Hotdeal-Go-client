@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetRuliwebHotdealItems @Inject constructor(
     private val hotDealRepository: HotDealRepository
 ) {
-    fun getItems() = hotDealRepository.getHotdealFromRuliweb()
+    suspend fun getItems() = hotDealRepository.getHotdealFromRuliweb()
 }
