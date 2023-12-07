@@ -59,9 +59,11 @@ class HotDealViewModel @Inject constructor(
                     }
                 }
             }
+
+            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
         }
 
-        _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
+
     }
 
 
