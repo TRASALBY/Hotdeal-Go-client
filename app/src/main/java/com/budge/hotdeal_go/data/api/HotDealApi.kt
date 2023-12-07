@@ -11,4 +11,5 @@ interface HotDealApi {
 
     ): List<HotDealItem>
 
+
 }
