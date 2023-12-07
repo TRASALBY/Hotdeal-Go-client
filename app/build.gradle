@@ -86,6 +86,9 @@ dependencies {
 
     //Naver Login
     implementation "com.navercorp.nid:oauth:5.9.0"
+
+    //EncryptedPrefs
+    implementation "androidx.security:security-crypto-ktx:1.1.0-alpha06"
 }
 
 kapt {
