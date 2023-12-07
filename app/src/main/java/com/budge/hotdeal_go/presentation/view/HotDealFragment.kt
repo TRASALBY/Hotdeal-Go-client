@@ -5,8 +5,10 @@ import android.view.View
 import com.budge.hotdeal_go.R
 import com.budge.hotdeal_go.databinding.FragmentHotDealBinding
 import com.budge.hotdeal_go.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
     FragmentHotDealBinding::inflate,
     R.layout.fragment_hot_deal
