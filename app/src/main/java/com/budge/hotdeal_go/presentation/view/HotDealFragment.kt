@@ -3,7 +3,6 @@ package com.budge.hotdeal_go.presentation.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.budge.hotdeal_go.R
@@ -14,7 +13,6 @@ import com.budge.hotdeal_go.presentation.decoration.VerticalItemDecorator
 import com.budge.hotdeal_go.presentation.viewmodel.HotDealViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "HotDealFragment_싸피"
 
 @AndroidEntryPoint
 class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
@@ -32,23 +30,25 @@ class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
         setDataBinding()
         setRecyclerView()
 
-//        binding.chipGroup.checkedChipIds
-
-        viewModel.searchItem()
-
     }
 
 
     private fun setObserve() {
         viewModel.hotDealItemList.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onViewCreated: $it")
             listAdapter.submitList(it)
         }
-        viewModel.hotDealCheckedChipIds.observe(viewLifecycleOwner) {
-//            dataBinding.hotDealViewModel = viewModel
-            Log.d(TAG, "setObserve: $it")
+
+        viewModel.isFmkoreaChecked.observe(viewLifecycleOwner) {
             viewModel.searchItem()
         }
+        viewModel.isQuasarzoneChecked.observe(viewLifecycleOwner) {
+            viewModel.searchItem()
+        }
+        viewModel.isRuliwebChecked.observe(viewLifecycleOwner) {
+            viewModel.searchItem()
+        }
+
+
     }
 
     private fun setDataBinding() {

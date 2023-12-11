@@ -19,13 +19,14 @@ class HotDealViewModel @Inject constructor(
     private val getQuasarzoneHotdealItems: GetQuasarzoneHotdealItems,
     private val getRuliwebHotdealItems: GetRuliwebHotdealItems
 ) : ViewModel() {
-
     private val _hotDealItemList = MutableLiveData<List<HotDealItem>>(emptyList())
     val hotDealItemList: LiveData<List<HotDealItem>> get() = _hotDealItemList
 
-    private val _hotDealCheckedChipIds = MutableLiveData<Set<Int>>(emptySet())
-    val hotDealCheckedChipIds: LiveData<Set<Int>> get() = _hotDealCheckedChipIds
+    val isFmkoreaChecked = MutableLiveData(true)
 
+    val isQuasarzoneChecked = MutableLiveData(true)
+
+    val isRuliwebChecked = MutableLiveData(true)
 
     private fun getFmKoreaHotdeal() =
         viewModelScope.async {
@@ -49,30 +50,16 @@ class HotDealViewModel @Inject constructor(
         }.getOrDefault(emptyList())
     }
 
-    fun onChipToggled(checkedId: Int) {
-        val nowSelectedId = hotDealCheckedChipIds.value?.toMutableSet() ?: mutableSetOf()
-
-        if (checkedId in nowSelectedId) {
-            nowSelectedId.remove(checkedId)
-        } else {
-            nowSelectedId.add(checkedId)
-        }
-
-        _hotDealCheckedChipIds.value = nowSelectedId.toMutableSet()
-
-    }
-
 
     fun searchItem() {
         val newHotDealItemList = mutableListOf<HotDealItem>()
         viewModelScope.launch {
-            _hotDealCheckedChipIds.value?.forEach {
-                when (it) {
-                    0 -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
-                    1 -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
-                    2 -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
-                }
+            when {
+                isFmkoreaChecked.value == true -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
+                isRuliwebChecked.value == true -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
+                isQuasarzoneChecked.value == true -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
             }
+
             _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
         }
     }
