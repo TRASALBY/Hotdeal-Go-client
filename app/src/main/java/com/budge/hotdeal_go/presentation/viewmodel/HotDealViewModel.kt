@@ -23,6 +23,13 @@ class HotDealViewModel @Inject constructor(
     private val _hotDealItemList = MutableLiveData<List<HotDealItem>>(emptyList())
     val hotDealItemList: LiveData<List<HotDealItem>> get() = _hotDealItemList
 
+    private val _hotDealCheckedChipIds = MutableLiveData<List<Int>>()
+    val hotDealCheckedChipIds: LiveData<List<Int>> get() = _hotDealCheckedChipIds
+
+    init {
+        _hotDealCheckedChipIds.value = listOf(0, 1, 2)
+    }
+
     private fun getFmKoreaHotdeal() =
         viewModelScope.async {
             runCatching {
@@ -46,6 +53,7 @@ class HotDealViewModel @Inject constructor(
     }
 
 
+    /*
     fun searchItem(booleanArray: BooleanArray) {
 
         val newHotDealItemList = mutableListOf<HotDealItem>()
@@ -65,6 +73,43 @@ class HotDealViewModel @Inject constructor(
 
 
     }
+    */
+
+    /*
+    fun searchItem(selectedList: MutableList<Int>) {
+        val newHotDealItemList = mutableListOf<HotDealItem>()
+        viewModelScope.launch {
+            selectedList.forEach {
+                when (it) {
+                    0 -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
+                    1 -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
+                    2 -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
+                }
+            }
+            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
+        }
+    }
+    */
 
 
+//    fun setCheckedChipIds() {
+//        viewModelScope.launch {
+//            _hotDealCheckedChipIds.value = listOf(0,1,2)
+//        }
+//
+//    }
+
+    fun searchItem() {
+        val newHotDealItemList = mutableListOf<HotDealItem>()
+        viewModelScope.launch {
+            _hotDealCheckedChipIds.value?.forEach {
+                when (it) {
+                    0 -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
+                    1 -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
+                    2 -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
+                }
+            }
+            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
+        }
+    }
 }
