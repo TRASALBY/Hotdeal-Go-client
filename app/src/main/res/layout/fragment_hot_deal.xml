@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_border"
             android:hint="@string/plz_input_query"
+            android:inputType="text"
+            android:maxLines="1"
             android:paddingHorizontal="12dp"
             android:paddingVertical="4dp"
             app:layout_constraintEnd_toStartOf="@+id/hotDealSearchBtn"
