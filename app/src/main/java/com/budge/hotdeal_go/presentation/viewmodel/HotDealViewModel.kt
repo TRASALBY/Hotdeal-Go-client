@@ -23,12 +23,9 @@ class HotDealViewModel @Inject constructor(
     private val _hotDealItemList = MutableLiveData<List<HotDealItem>>(emptyList())
     val hotDealItemList: LiveData<List<HotDealItem>> get() = _hotDealItemList
 
-    private val _hotDealCheckedChipIds = MutableLiveData<List<Int>>()
-    val hotDealCheckedChipIds: LiveData<List<Int>> get() = _hotDealCheckedChipIds
+    private val _hotDealCheckedChipIds = MutableLiveData<Set<Int>>(emptySet())
+    val hotDealCheckedChipIds: LiveData<Set<Int>> get() = _hotDealCheckedChipIds
 
-    init {
-        _hotDealCheckedChipIds.value = listOf(0, 1, 2)
-    }
 
     private fun getFmKoreaHotdeal() =
         viewModelScope.async {
@@ -52,52 +49,19 @@ class HotDealViewModel @Inject constructor(
         }.getOrDefault(emptyList())
     }
 
+    fun onChipToggled(checkedId: Int) {
+        val nowSelectedId = hotDealCheckedChipIds.value?.toMutableSet() ?: mutableSetOf()
 
-    /*
-    fun searchItem(booleanArray: BooleanArray) {
-
-        val newHotDealItemList = mutableListOf<HotDealItem>()
-        viewModelScope.launch {
-            booleanArray.forEachIndexed { index, boolean ->
-                if (boolean) {
-                    when (index) {
-                        0 -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
-                        1 -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
-                        2 -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
-                    }
-                }
-            }
-
-            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
+        if (checkedId in nowSelectedId) {
+            nowSelectedId.remove(checkedId)
+        } else {
+            nowSelectedId.add(checkedId)
         }
 
+        _hotDealCheckedChipIds.value = nowSelectedId.toMutableSet()
 
     }
-    */
 
-    /*
-    fun searchItem(selectedList: MutableList<Int>) {
-        val newHotDealItemList = mutableListOf<HotDealItem>()
-        viewModelScope.launch {
-            selectedList.forEach {
-                when (it) {
-                    0 -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
-                    1 -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
-                    2 -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
-                }
-            }
-            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
-        }
-    }
-    */
-
-
-//    fun setCheckedChipIds() {
-//        viewModelScope.launch {
-//            _hotDealCheckedChipIds.value = listOf(0,1,2)
-//        }
-//
-//    }
 
     fun searchItem() {
         val newHotDealItemList = mutableListOf<HotDealItem>()

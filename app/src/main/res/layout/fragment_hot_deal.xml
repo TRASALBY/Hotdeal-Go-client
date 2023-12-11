@@ -68,13 +68,11 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
-                bindTest="@{hotDealViewModel.hotDealCheckedChipIds}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipSpacingHorizontal="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hotDealSearchET"
-
                 app:singleSelection="false">
 
                 <com.google.android.material.chip.Chip
@@ -82,7 +80,8 @@
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="@{hotDealViewModel.hotDealCheckedChipIds.contains(@id/chip1)}"
+                    android:onCheckedChanged="@{(view, isChecked) -> hotDealViewModel.onChipToggled(@id/chip1)}"
                     android:text="fmkorea"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -94,7 +93,8 @@
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="@{hotDealViewModel.hotDealCheckedChipIds.contains(@id/chip2)}"
+                    android:onCheckedChanged="@{(view, isChecked) -> hotDealViewModel.onChipToggled(@id/chip2)}"
                     android:text="quasarzone"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -106,7 +106,8 @@
                     style="@style/ChipChoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="@{hotDealViewModel.hotDealCheckedChipIds.contains(@id/chip3)}"
+                    android:onCheckedChanged="@{(view, isChecked) -> hotDealViewModel.onChipToggled(@id/chip3)}"
                     android:text="ruliweb"
                     android:textColor="@color/white"
                     android:textSize="18sp"

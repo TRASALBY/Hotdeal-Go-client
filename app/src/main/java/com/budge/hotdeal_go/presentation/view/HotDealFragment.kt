@@ -4,10 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.budge.hotdeal_go.R
 import com.budge.hotdeal_go.databinding.FragmentHotDealBinding
@@ -27,17 +24,6 @@ class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
 
     private val viewModel by viewModels<HotDealViewModel>()
     private lateinit var listAdapter: HotDealRecyclerViewAdapter
-    private lateinit var dataBinding: FragmentHotDealBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dataBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_hot_deal, container, false)
-        return dataBinding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,7 +33,6 @@ class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
         setRecyclerView()
 
 //        binding.chipGroup.checkedChipIds
-
 
         viewModel.searchItem()
 
@@ -67,18 +52,19 @@ class HotDealFragment : BaseFragment<FragmentHotDealBinding>(
     }
 
     private fun setDataBinding() {
-        dataBinding.hotDealViewModel = viewModel
-        dataBinding.lifecycleOwner = viewLifecycleOwner
+        binding.hotDealViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
+
     private fun setRecyclerView() {
-        dataBinding.recyclerView.addItemDecoration(VerticalItemDecorator(20))
+        binding.recyclerView.addItemDecoration(VerticalItemDecorator(20))
         listAdapter = HotDealRecyclerViewAdapter(
             itemClick = { hotDealItem ->
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(hotDealItem.url)))
             }
         )
-        dataBinding.recyclerView.adapter = listAdapter
+        binding.recyclerView.adapter = listAdapter
     }
 
 
