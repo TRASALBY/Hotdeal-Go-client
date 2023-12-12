@@ -60,7 +60,7 @@ class HotDealViewModel @Inject constructor(
                 isQuasarzoneChecked.value == true -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
             }
 
-            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }
+            _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }.reversed()
         }
     }
 }

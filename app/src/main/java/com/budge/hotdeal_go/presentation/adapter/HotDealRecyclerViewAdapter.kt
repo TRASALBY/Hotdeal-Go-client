@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.budge.hotdeal_go.data.model.HotDealItem
 import com.budge.hotdeal_go.databinding.ItemHotdealBinding
+import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HotDealRecyclerViewAdapter(
     private val itemClick: (HotDealItem) -> (Unit)
@@ -38,12 +41,18 @@ class HotDealRecyclerViewAdapter(
 
         fun bind(hotDealItem: HotDealItem) {
             this.hotDealItem = hotDealItem
-            binding.hotDealTitle.text = hotDealItem.title
-            binding.hotDealShoppingMall.text = hotDealItem.purchasingPlace
-            binding.hotDealCost.text = hotDealItem.price
-            binding.hotDealLikeCnt.text = hotDealItem.likeCnt.toString()
-            binding.hotDealDeliveryFee.text = hotDealItem.shippingFee
-            binding.hotDealWriteDate.text = hotDealItem.time
+            val simpleDateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)
+            val simpleDateFormatter = SimpleDateFormat("MM-dd HH:mm")
+            binding.hotDealTitle.text = hotDealItem.title ?: "정보없음"
+            binding.hotDealShoppingMall.text = hotDealItem.purchasingPlace ?: "정보없음"
+            binding.hotDealCost.text = hotDealItem.price ?: "정보없음"
+            binding.hotDealLikeCnt.text = hotDealItem.likeCnt?.toString() ?: "0"
+            binding.hotDealDeliveryFee.text = hotDealItem.shippingFee ?: "정보없음"
+            binding.hotDealWriteDate.text =
+                simpleDateFormatter.format(simpleDateParser.parse(hotDealItem.time)) ?: "정보없음"
+            Glide.with(itemView)
+                .load(hotDealItem.img)
+                .into(binding.hotDealImg)
         }
     }
 

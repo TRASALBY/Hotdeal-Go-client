@@ -39,8 +39,8 @@
             android:fontFamily="@font/hotdeal_title"
             android:maxLines="1"
             android:textColor="?attr/colorPrimaryDark"
-            android:textFontWeight="700"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/hotDealImg"
             app:layout_constraintTop_toTopOf="parent"
 
@@ -54,33 +54,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="쇼핑몰 : " />
+                android:text="@string/shoppingMallInfoAnnouncement" />
 
             <TextView
                 android:id="@+id/hotDealShoppingMall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorPrimaryDark"
-                android:textFontWeight="700"
+                android:textStyle="bold"
                 tools:text="네이버" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" / 가격 : " />
+                android:text="@string/priceInfoAnnouncement" />
 
             <TextView
                 android:id="@+id/hotDealCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorPrimaryDark"
-                android:textFontWeight="700"
+                android:textStyle="bold"
                 tools:text="20,000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="원 / 배송비 : " />
+                android:text="@string/shippingFeeInfoAnnouncement" />
 
             <TextView
                 android:id="@+id/hotDealDeliveryFee"
@@ -89,7 +89,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="?attr/colorPrimaryDark"
-                android:textFontWeight="700"
+                android:textStyle="bold"
                 tools:text="무료" />
 
         </LinearLayout>
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="작성일시 : " />
+                android:text="@string/writedDateInfoAnnouncement" />
 
             <TextView
                 android:id="@+id/hotDealWriteDate"
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" / 좋아요 : " />
+                android:text="@string/likeCntInfoAnnouncement" />
 
             <TextView
                 android:id="@+id/hotDealLikeCnt"
