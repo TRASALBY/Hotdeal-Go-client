@@ -54,11 +54,9 @@ class HotDealViewModel @Inject constructor(
     fun searchItem() {
         val newHotDealItemList = mutableListOf<HotDealItem>()
         viewModelScope.launch {
-            when {
-                isFmkoreaChecked.value == true -> newHotDealItemList.addAll(getFmKoreaHotdeal().await())
-                isRuliwebChecked.value == true -> newHotDealItemList.addAll(getRuliwebHotdeal().await())
-                isQuasarzoneChecked.value == true -> newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
-            }
+            if (isFmkoreaChecked.value == true) newHotDealItemList.addAll(getFmKoreaHotdeal().await())
+            if (isRuliwebChecked.value == true) newHotDealItemList.addAll(getRuliwebHotdeal().await())
+            if (isQuasarzoneChecked.value == true) newHotDealItemList.addAll(getQuasarzoneHotdeal().await())
 
             _hotDealItemList.value = newHotDealItemList.sortedBy { it.time }.reversed()
         }

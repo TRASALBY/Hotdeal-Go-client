@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.budge.hotdeal_go.R
 import com.budge.hotdeal_go.data.model.HotDealItem
 import com.budge.hotdeal_go.databinding.ItemHotdealBinding
 import com.bumptech.glide.Glide
@@ -52,6 +53,7 @@ class HotDealRecyclerViewAdapter(
                 simpleDateFormatter.format(simpleDateParser.parse(hotDealItem.time)) ?: "정보없음"
             Glide.with(itemView)
                 .load(hotDealItem.img)
+                .placeholder(R.drawable.baseline_add_box_24)
                 .into(binding.hotDealImg)
         }
     }

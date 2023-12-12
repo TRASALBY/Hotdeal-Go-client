@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/hotDealImg"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_add_box_24"
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         tools:src="@drawable/baseline_add_box_24" />
 
     <LinearLayout
