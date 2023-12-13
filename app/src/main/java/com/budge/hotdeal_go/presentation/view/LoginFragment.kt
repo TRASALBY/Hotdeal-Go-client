@@ -19,7 +19,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "LoginFragment"
+private const val TAG = "LoginFragment_트라"
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(
@@ -29,11 +29,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private val viewModel: LoginViewModel by viewModels()
 
-    val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            viewModel.loginWithKakao(token.accessToken)
         }
     }
 
@@ -95,6 +96,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                     )
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                    viewModel.loginWithKakao(token.accessToken)
                 }
             }
         } else {
