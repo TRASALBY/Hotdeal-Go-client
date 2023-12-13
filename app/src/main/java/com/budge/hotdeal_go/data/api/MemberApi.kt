@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface MemberApi {
 
     @GET("/member/oauth/kakao")
-    fun loginWithKakao(
+    suspend fun loginWithKakao(
         @Query("kakaoAccessToken")
         socialToken: String
     ): TokenResponse
