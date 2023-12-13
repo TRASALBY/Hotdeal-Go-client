@@ -2,6 +2,7 @@ package com.budge.hotdeal_go.presentation.view
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,6 +43,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         super.onViewCreated(view, savedInstanceState)
         setNaverLogin()
         setEvent()
+        setObserve()
+    }
+
+    private fun setObserve() {
+        viewModel.logInState.observe(viewLifecycleOwner) { isLoggedIn ->
+            if(isLoggedIn){
+                val intent = Intent().apply {
+                    putExtra("LoginResult", isLoggedIn)
+                }
+                requireActivity().setResult(RESULT_OK, intent)
+                requireActivity().finish()
+            }
+        }
+
+
     }
 
     private fun setNaverLogin() {

@@ -1,7 +1,9 @@
 package com.budge.hotdeal_go.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.core.view.get
@@ -17,6 +19,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     private val activityViewModel by viewModels<MainViewModel>()
+
+    private val getLoginResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                activityViewModel.setLoginState(
+                    result.data?.getBooleanExtra("logInResult", false) ?: false
+                )
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun setToolBar() {
+        val intent = Intent(this, LoginActivity::class.java)
         binding.toolbarInMain.toolbar.menu.children.forEach {
             it.setOnMenuItemClickListener {
-                //로그인 화면으로
+                getLoginResult.launch(intent)
                 true
             }
         }

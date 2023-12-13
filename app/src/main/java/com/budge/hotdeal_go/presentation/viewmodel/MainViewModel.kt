@@ -12,9 +12,14 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
 
 ) : ViewModel() {
+
+
     private val _loginState =
         MutableLiveData(EncryptedPrefs.getString(PrefsKey.ACCESS_TOKEN_KEY).isNotEmpty())
     val loginState: LiveData<Boolean> get() = _loginState
 
 
+    fun setLoginState(loginResult: Boolean) {
+        _loginState.value = loginResult
+    }
 }
