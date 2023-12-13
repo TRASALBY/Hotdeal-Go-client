@@ -17,4 +17,5 @@
     <string name="shippingFeeInfoAnnouncement">원/ 배송비&#160;</string>
     <string name="writedDateInfoAnnouncement">작성일시&#160;</string>
     <string name="likeCntInfoAnnouncement">/ 좋아요&#160;</string>
+    <string name="mypage">마이페이지</string>
 </resources>

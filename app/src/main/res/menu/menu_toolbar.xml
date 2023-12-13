@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/item_myName"
-        android:title="임시이름"
+        android:title="@string/login"
         app:showAsAction="always|withText" />
 
     <item
         android:id="@+id/item_myPage"
         android:icon="@drawable/baseline_person_24"
-        android:title="마이페이지"
-        app:showAsAction="always" />
+        android:title="@string/mypage"
+        app:showAsAction="ifRoom" />
 
 </menu>
