@@ -1,0 +1,14 @@
+package com.budge.hotdeal_go.data.api
+
+import com.budge.hotdeal_go.data.model.TokenResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface MemberApi {
+
+    @GET("/member/oauth/kakao")
+    fun loginWithKakao(
+        @Query("kakaoAccessToken")
+        socialToken: String
+    ): TokenResponse
+}

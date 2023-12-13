@@ -33,4 +33,10 @@ object ApiModule {
     fun provideHotDealAPI(
         retrofit: Retrofit
     ): HotDealApi = retrofit.create(HotDealApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMemberAPI(
+        retrofit: Retrofit
+    ): HotDealApi = retrofit.create(HotDealApi::class.java)
 }
