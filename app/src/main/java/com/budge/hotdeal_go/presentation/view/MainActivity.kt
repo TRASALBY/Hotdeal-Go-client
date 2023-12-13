@@ -24,7 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 activityViewModel.setLoginState(
-                    result.data?.getBooleanExtra("logInResult", false) ?: false
+                    result.data?.getBooleanExtra("LogInResult", false) ?: false
                 )
             }
         }
@@ -44,7 +44,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             } else {
                 "로그인"
             }
-
         }
     }
 

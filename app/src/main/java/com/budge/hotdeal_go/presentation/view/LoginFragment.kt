@@ -50,7 +50,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         viewModel.logInState.observe(viewLifecycleOwner) { isLoggedIn ->
             if(isLoggedIn){
                 val intent = Intent().apply {
-                    putExtra("LoginResult", isLoggedIn)
+                    putExtra("LogInResult", isLoggedIn)
                 }
                 requireActivity().setResult(RESULT_OK, intent)
                 requireActivity().finish()
