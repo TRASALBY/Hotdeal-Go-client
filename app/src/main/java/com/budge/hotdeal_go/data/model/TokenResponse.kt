@@ -3,8 +3,8 @@ package com.budge.hotdeal_go.data.model
 import com.google.gson.annotations.SerializedName
 
 data class TokenResponse(
-    @SerializedName("access-token")
+    @SerializedName("accessToken")
     val accessToken: String,
-    @SerializedName("refresh-token")
+    @SerializedName("refreshToken")
     val refreshToken: String
 )
