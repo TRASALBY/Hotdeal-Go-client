@@ -25,6 +25,7 @@ object ApiModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class AuthRetrofit
 
+    @HotDealRetrofit
     @Singleton
     @Provides
     fun provideHotDealRetrofit(
@@ -40,6 +41,7 @@ object ApiModule {
         return builder.build()
     }
 
+    @AuthRetrofit
     @Singleton
     @Provides
     fun provideAuthRetrofit(
