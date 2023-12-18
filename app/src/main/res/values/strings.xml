@@ -18,4 +18,6 @@
     <string name="writedDateInfoAnnouncement">작성일시&#160;</string>
     <string name="likeCntInfoAnnouncement">/ 좋아요&#160;</string>
     <string name="mypage">마이페이지</string>
+    <string name="sign_up">회원가입</string>
+    <string name="name">이름</string>
 </resources>
