@@ -10,8 +10,8 @@ interface NoticeApi {
         @Query("keyword")
         Keyword: String?,
         @Query("pgno")
-        pageNumber: String?,
+        pageNumber: Int?,
         @Query("npp")
-        nowPageNumber: String?,
+        noticeCount: Int?,
     ): NoticeResponse
 }
