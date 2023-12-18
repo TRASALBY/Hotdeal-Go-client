@@ -10,6 +10,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.budge.hotdeal_go.BuildConfig
 import com.budge.hotdeal_go.R
+import com.budge.hotdeal_go.core.constant.PrefsKey
+import com.budge.hotdeal_go.core.util.EncryptedPrefs
 import com.budge.hotdeal_go.databinding.FragmentLoginBinding
 import com.budge.hotdeal_go.presentation.base.BaseFragment
 import com.budge.hotdeal_go.presentation.viewmodel.LoginViewModel
@@ -35,7 +37,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            viewModel.loginWithKakao(token.accessToken)
+            EncryptedPrefs.putString(PrefsKey.ACCESS_TOKEN_KEY, token.accessToken)
+            viewModel.loginWithKakao()
         }
     }
 
@@ -48,7 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private fun setObserve() {
         viewModel.logInState.observe(viewLifecycleOwner) { isLoggedIn ->
-            if(isLoggedIn){
+            if (isLoggedIn) {
                 val intent = Intent().apply {
                     putExtra("LogInResult", isLoggedIn)
                 }
@@ -112,7 +115,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                     )
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    viewModel.loginWithKakao(token.accessToken)
+                    EncryptedPrefs.putString(PrefsKey.ACCESS_TOKEN_KEY, token.accessToken)
+                    viewModel.loginWithKakao()
                 }
             }
         } else {

@@ -10,8 +10,8 @@ import javax.inject.Inject
 class MemberRemoteDataSourceImpl @Inject constructor(
     private val memberApi: MemberApi
 ) : MemberRemoteDataSource {
-    override suspend fun loginWithKakao(socialToken: String) : TokenResponse{
-        val result = memberApi.loginWithKakao(socialToken)
+    override suspend fun loginWithKakao() : TokenResponse{
+        val result = memberApi.loginWithKakao()
         val body = result.body()
         if(result.isSuccessful){
             if(body != null){
