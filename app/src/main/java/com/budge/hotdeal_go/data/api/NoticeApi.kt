@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface NoticeApi {
     @GET("/notice")
-    fun getNoticeList(
+    suspend fun getNoticeList(
         @Query("keyword")
         Keyword: String?,
         @Query("pgno")

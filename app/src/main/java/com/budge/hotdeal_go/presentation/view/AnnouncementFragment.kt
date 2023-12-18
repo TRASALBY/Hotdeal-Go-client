@@ -26,27 +26,31 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>(
 
         setNoticeRecyclerView()
         setObserve()
-
         binding.lpbButtonlist.setPageItemCount(5)
-        binding.lpbButtonlist.addBottomPageButton(10, 1)
+    }
+
+
+    private fun setNoticePageBtn(totalPageCnt: Int) {
+        binding.lpbButtonlist.addBottomPageButton(totalPageCnt, viewModel.pageNum.value ?: 1)
         binding.lpbButtonlist.setOnPageSelectListener(object : OnPageSelectListener {
             override fun onPageBefore(nowPage: Int) {
-                binding.lpbButtonlist.addBottomPageButton(10, nowPage)
+                binding.lpbButtonlist.addBottomPageButton(totalPageCnt, nowPage)
+                viewModel.changeNowPage(nowPage)
                 Toast.makeText(requireContext(), nowPage.toString(), Toast.LENGTH_SHORT).show()
             }
 
             override fun onPageCenter(nowPage: Int) {
+                viewModel.changeNowPage(nowPage)
                 Toast.makeText(requireContext(), nowPage.toString(), Toast.LENGTH_SHORT).show()
             }
 
             override fun onPageNext(nowPage: Int) {
-                binding.lpbButtonlist.addBottomPageButton(10, nowPage)
+                binding.lpbButtonlist.addBottomPageButton(totalPageCnt, nowPage)
+                viewModel.changeNowPage(nowPage)
                 Toast.makeText(requireContext(), nowPage.toString(), Toast.LENGTH_SHORT).show()
             }
-
         })
     }
-
 
     private fun setNoticeRecyclerView() {
         noticeAdapter = NoticeListAdapter { noticeItem ->
@@ -59,5 +63,17 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>(
         viewModel.noticeItem.observe(viewLifecycleOwner) {
             noticeAdapter.submitList(it)
         }
+
+        viewModel.totalPageCnt.observe(viewLifecycleOwner) {
+            setNoticePageBtn(it)
+        }
+
+        viewModel.pageNum.observe(viewLifecycleOwner) {
+            viewModel.getNoticeListByPage(NOTICE_COUNT)
+        }
+    }
+
+    companion object {
+        const val NOTICE_COUNT = 10
     }
 }
