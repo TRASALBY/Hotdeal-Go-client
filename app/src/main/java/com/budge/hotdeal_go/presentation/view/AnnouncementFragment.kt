@@ -16,7 +16,7 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lpbButtonlist.setPageItemCount(4)
+        binding.lpbButtonlist.setPageItemCount(5)
         binding.lpbButtonlist.addBottomPageButton(10,1)
         binding.lpbButtonlist.setOnPageSelectListener(object : OnPageSelectListener{
             override fun onPageBefore(nowPage: Int) {
