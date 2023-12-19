@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -96,6 +97,10 @@ dependencies {
 
     //EncryptedPrefs
     implementation "androidx.security:security-crypto-ktx:1.1.0-alpha06"
+
+    //FCM
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
 }
 
 kapt {
