@@ -2,6 +2,7 @@ package com.budge.hotdeal_go.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -12,7 +13,9 @@ import com.budge.hotdeal_go.databinding.ActivityMainBinding
 import com.budge.hotdeal_go.presentation.adapter.ViewPagerAdapter
 import com.budge.hotdeal_go.presentation.base.BaseActivity
 import com.budge.hotdeal_go.presentation.viewmodel.MainViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,8 +35,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewPager()
+        setFCM()
         setToolBar()
         setObserve()
+
+    }
+
+    private fun setFCM() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM Log", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result.toString()
+
+            // Log and toast
+            Log.w("FCM Log", "Current Token = " + token)
+        })
     }
 
     private fun setObserve() {
