@@ -37,7 +37,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            EncryptedPrefs.putString(PrefsKey.ACCESS_TOKEN_KEY, token.accessToken)
+            EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
             viewModel.loginWithKakao()
         }
     }
@@ -115,7 +115,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                     )
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    EncryptedPrefs.putString(PrefsKey.ACCESS_TOKEN_KEY, token.accessToken)
+                    EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
                     viewModel.loginWithKakao()
                 }
             }
