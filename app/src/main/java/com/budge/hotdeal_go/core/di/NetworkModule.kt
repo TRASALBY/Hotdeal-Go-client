@@ -55,9 +55,12 @@ object NetworkModule {
     @Provides
     fun providesAuthorizationInterceptor() = Interceptor { chain ->
         val request = chain.request().newBuilder()
+        val hasAuthorization = chain.request().headers.names().contains("Authorization")
 
-        val accessToken = chain.request().header("Authorization")
-        request.header("Authorization", "Bearer $accessToken")
+        if (hasAuthorization) {
+            val accessToken = chain.request().header("Authorization")
+            request.header("Authorization", "Bearer $accessToken")
+        }
         chain.proceed(request.build())
     }
 
