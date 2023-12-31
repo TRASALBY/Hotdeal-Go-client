@@ -44,7 +44,7 @@
             android:id="@+id/btn_add_announcement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.addkeyword()}"
+            android:onClick="@{() -> viewModel.addKeyword()}"
             android:text="키워드 알림 등록"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

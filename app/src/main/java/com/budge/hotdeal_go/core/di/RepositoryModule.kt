@@ -1,7 +1,9 @@
 package com.budge.hotdeal_go.core.di
 
+import com.budge.hotdeal_go.data.repository.AnnouncementRepositoryImpl
 import com.budge.hotdeal_go.data.repository.HotDealRepositoryImpl
 import com.budge.hotdeal_go.data.repository.MemberRepositoryImpl
+import com.budge.hotdeal_go.domain.repository.AnnouncementRepository
 import com.budge.hotdeal_go.domain.repository.HotDealRepository
 import com.budge.hotdeal_go.domain.repository.MemberRepository
 import dagger.Binds
@@ -17,4 +19,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindMemberRepository(memberRepositoryImpl: MemberRepositoryImpl): MemberRepository
+
+    @Binds
+    abstract fun bindAnnouncementRepository(announcementRepository: AnnouncementRepositoryImpl): AnnouncementRepository
 }

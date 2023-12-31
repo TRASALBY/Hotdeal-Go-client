@@ -1,5 +1,6 @@
 package com.budge.hotdeal_go.core.di
 
+import com.budge.hotdeal_go.data.api.AnnouncementApi
 import com.budge.hotdeal_go.data.api.HotDealApi
 import com.budge.hotdeal_go.data.api.MemberApi
 import dagger.Module
@@ -70,4 +71,11 @@ object ApiModule {
         @AuthRetrofit
         retrofit: Retrofit
     ): MemberApi = retrofit.create(MemberApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideAnnouncementAPI(
+        @AuthRetrofit
+        retrofit: Retrofit
+    ): AnnouncementApi = retrofit.create(AnnouncementApi::class.java)
 }

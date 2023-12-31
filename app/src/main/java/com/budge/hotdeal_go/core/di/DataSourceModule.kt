@@ -1,5 +1,7 @@
 package com.budge.hotdeal_go.core.di
 
+import com.budge.hotdeal_go.data.datasource.announcement.AnnouncementDatasource
+import com.budge.hotdeal_go.data.datasource.announcement.AnnouncementDatasourceImpl
 import com.budge.hotdeal_go.data.datasource.hotdeal.HotDealRemoteDatasource
 import com.budge.hotdeal_go.data.datasource.hotdeal.HotDealRemoteDatasourceImpl
 import com.budge.hotdeal_go.data.datasource.member.MemberRemoteDataSource
@@ -18,4 +20,6 @@ abstract class DataSourceModule {
     @Binds
     abstract fun bindMemberRemoteDatasource(memberRemoteDataSource: MemberRemoteDataSourceImpl): MemberRemoteDataSource
 
+    @Binds
+    abstract fun bindAnnouncementDatasource(announcementDatasource: AnnouncementDatasourceImpl): AnnouncementDatasource
 }
