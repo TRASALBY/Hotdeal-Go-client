@@ -15,6 +15,8 @@ import com.budge.hotdeal_go.core.util.EncryptedPrefs
 import com.budge.hotdeal_go.databinding.FragmentLoginBinding
 import com.budge.hotdeal_go.presentation.base.BaseFragment
 import com.budge.hotdeal_go.presentation.viewmodel.LoginViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -55,6 +57,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 val intent = Intent().apply {
                     putExtra("LogInResult", isLoggedIn)
                 }
+                viewModel.loginWithKakao()
                 requireActivity().setResult(RESULT_OK, intent)
                 requireActivity().finish()
             }
@@ -94,6 +97,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         binding.ibKakaoLogin.setOnClickListener {
             startKakaoLogin()
         }
+    }
+
+    private fun setFcmToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result.toString()
+            EncryptedPrefs.putString(PrefsKey.FCM_TOKEN_KEY, token)
+
+        })
     }
 
     private fun startKakaoLogin() {
