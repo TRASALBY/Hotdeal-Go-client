@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.budge.hotdeal_go.presentation.viewmodel.AnnouncementViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +20,7 @@
             android:id="@+id/btn_add_fcm_token"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.addFcmToken()}"
             android:text="fcm 토큰 등록"
             app:layout_constraintBottom_toTopOf="@id/et_announce_keyword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
             android:hint="알림 키워드 입력"
+            android:text="@={viewModel.keyword}"
             app:layout_constraintBottom_toTopOf="@id/btn_add_announcement"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +44,7 @@
             android:id="@+id/btn_add_announcement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.addkeyword()}"
             android:text="키워드 알림 등록"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
