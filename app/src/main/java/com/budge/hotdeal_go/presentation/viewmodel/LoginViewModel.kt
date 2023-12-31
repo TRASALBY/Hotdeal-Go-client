@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginWithKakaoUseCase: LoginWithKakaoUseCase,
-    private val getMemberInfoUseCase: GetMemberInfoUseCase
+    private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val addFcmTokenUseCase: AddFcmTokenUseCase
 ) : ViewModel() {
 
