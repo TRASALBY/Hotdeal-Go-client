@@ -75,7 +75,7 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideAnnouncementAPI(
-        @AuthRetrofit
+        @HotDealRetrofit
         retrofit: Retrofit
     ): AnnouncementApi = retrofit.create(AnnouncementApi::class.java)
 }

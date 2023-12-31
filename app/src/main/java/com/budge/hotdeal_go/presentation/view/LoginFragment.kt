@@ -51,6 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFcmToken()
         setNaverLogin()
         setEvent()
         setObserve()

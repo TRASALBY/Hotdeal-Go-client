@@ -27,7 +27,6 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             _logInState.value = runCatching {
                 loginWithKakaoUseCase(deviceId)
-                addFcmToken()
             }.isSuccess
         }
     }
@@ -37,7 +36,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             val member = getMemberInfoUseCase()
             addFcmTokenUseCase(
-                member.id,
+                member.no.toString(),
                 EncryptedPrefs.getString(PrefsKey.FCM_TOKEN_KEY)
             )
         }
