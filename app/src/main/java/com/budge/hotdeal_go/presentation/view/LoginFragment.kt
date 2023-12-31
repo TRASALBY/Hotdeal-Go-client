@@ -62,7 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 val intent = Intent().apply {
                     putExtra("LogInResult", isLoggedIn)
                 }
-                viewModel.getMemberInfo()
+                viewModel.addFcmToken()
                 requireActivity().setResult(RESULT_OK, intent)
                 requireActivity().finish()
             }
