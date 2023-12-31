@@ -21,7 +21,7 @@ interface MemberApi {
 
     @GET("/member/info")
     suspend fun getMemberInfo(
-        @Header("Authorization") token: String = EncryptedPrefs.getString(PrefsKey.SOCIAL_TOKEN_KEY)
+        @Header("Authorization") token: String = EncryptedPrefs.getString(PrefsKey.ACCESS_TOKEN_KEY)
     ) : Response<Member>
 
 
