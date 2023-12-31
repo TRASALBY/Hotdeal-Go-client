@@ -16,11 +16,11 @@ class LoginViewModel @Inject constructor(
 
     private val _logInState = MutableLiveData(false)
     val logInState: LiveData<Boolean> get() = _logInState
+    fun loginWithKakao(deviceId: String) {
 
-    fun loginWithKakao() {
         viewModelScope.launch {
             _logInState.value = runCatching {
-                loginWithKakaoUseCase()
+                loginWithKakaoUseCase(deviceId)
             }.isSuccess
         }
     }

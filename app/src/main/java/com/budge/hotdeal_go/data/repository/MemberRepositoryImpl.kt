@@ -10,8 +10,8 @@ import javax.inject.Inject
 class MemberRepositoryImpl @Inject constructor(
     private val dataSource: MemberRemoteDataSource
 ) : MemberRepository {
-    override suspend fun loginWithKakao(): Boolean {
-        val result = runCatching { dataSource.loginWithKakao() }.getOrNull()
+    override suspend fun loginWithKakao(deviceId: String): Boolean {
+        val result = runCatching { dataSource.loginWithKakao(deviceId) }.getOrNull()
 
         if (result != null) {
             saveTokens(result)

@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +16,8 @@ import com.budge.hotdeal_go.core.util.EncryptedPrefs
 import com.budge.hotdeal_go.databinding.FragmentLoginBinding
 import com.budge.hotdeal_go.presentation.base.BaseFragment
 import com.budge.hotdeal_go.presentation.viewmodel.LoginViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -32,13 +35,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private val viewModel: LoginViewModel by viewModels()
 
+    private val androidId by lazy {
+        Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID)
+    }
+
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
             EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
-            viewModel.loginWithKakao()
+            viewModel.loginWithKakao(androidId)
         }
     }
 
@@ -55,6 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 val intent = Intent().apply {
                     putExtra("LogInResult", isLoggedIn)
                 }
+                viewModel.loginWithKakao(androidId)
                 requireActivity().setResult(RESULT_OK, intent)
                 requireActivity().finish()
             }
@@ -96,6 +104,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         }
     }
 
+    private fun setFcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result.toString()
+            EncryptedPrefs.putString(PrefsKey.FCM_TOKEN_KEY, token)
+
+        })
+    }
+
     private fun startKakaoLogin() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
             UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
@@ -116,7 +137,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                     EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
-                    viewModel.loginWithKakao()
+                    viewModel.loginWithKakao(androidId)
                 }
             }
         } else {
