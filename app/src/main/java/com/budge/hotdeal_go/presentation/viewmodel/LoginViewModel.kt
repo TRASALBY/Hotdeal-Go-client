@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.budge.hotdeal_go.domain.usecase.GetMemberInfoUseCase
 import com.budge.hotdeal_go.core.constant.PrefsKey
 import com.budge.hotdeal_go.core.util.EncryptedPrefs
 import com.budge.hotdeal_go.domain.usecase.announcement.AddFcmTokenUseCase
@@ -15,19 +16,25 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginWithKakaoUseCase: LoginWithKakaoUseCase,
+    private val getMemberInfoUseCase: GetMemberInfoUseCase
     private val addFcmTokenUseCase: AddFcmTokenUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableLiveData(false)
     val logInState: LiveData<Boolean> get() = _logInState
+    fun loginWithKakao(deviceId: String) {
 
-    fun loginWithKakao() {
         viewModelScope.launch {
             _logInState.value = runCatching {
-                loginWithKakaoUseCase()
+                loginWithKakaoUseCase(deviceId)
             }.isSuccess
         }
     }
+
+    fun getMemberInfo() =
+        viewModelScope.launch {
+            getMemberInfoUseCase()
+        }
 
     fun addFcmToken() {
         viewModelScope.launch {

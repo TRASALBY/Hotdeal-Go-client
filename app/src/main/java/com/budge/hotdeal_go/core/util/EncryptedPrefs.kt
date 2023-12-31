@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.budge.hotdeal_go.core.error.UserNotFoundException
+import com.budge.hotdeal_go.data.model.Member
 import com.google.gson.GsonBuilder
 
 object EncryptedPrefs {
@@ -35,6 +37,16 @@ object EncryptedPrefs {
 
     fun getString(key: String): String {
         return prefs?.getString(key, "") ?: ""
+    }
+
+    fun putMember(key: String, value: Member) {
+        val json = gson.toJson(value, Member::class.java)
+        putString(key, json)
+    }
+
+    fun getMember(key: String): Member {
+        val value = prefs?.getString(key, null) ?: throw UserNotFoundException()
+        return gson.fromJson(value, Member::class.java)
     }
 
     fun clearPrefs() {

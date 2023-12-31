@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,13 +35,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private val viewModel: LoginViewModel by viewModels()
 
+    private val androidId by lazy {
+        Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID)
+    }
+
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
             EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
-            viewModel.loginWithKakao()
+            viewModel.loginWithKakao(androidId)
         }
     }
 
@@ -57,7 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 val intent = Intent().apply {
                     putExtra("LogInResult", isLoggedIn)
                 }
-                viewModel.loginWithKakao()
+                viewModel.getMemberInfo()
                 requireActivity().setResult(RESULT_OK, intent)
                 requireActivity().finish()
             }
@@ -99,7 +104,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         }
     }
 
-    private fun setFcmToken(){
+    private fun setFcmToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 return@OnCompleteListener
@@ -132,7 +137,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                     EncryptedPrefs.putString(PrefsKey.SOCIAL_TOKEN_KEY, token.accessToken)
-                    viewModel.loginWithKakao()
+                    viewModel.loginWithKakao(androidId)
                 }
             }
         } else {
